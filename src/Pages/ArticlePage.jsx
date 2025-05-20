@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import CommentList from "../components/CommentList";
 
 export default function ArticlePage() {
   const { article_id } = useParams();
@@ -24,7 +25,7 @@ export default function ArticlePage() {
     })
   }, [article_id]);
 
-  if (isLoading) return <p>Loadiing article...</p>;
+  if (isLoading) return <p>Loading article...</p>;
   if (err) return <p>Error: {err}</p>;
 
   const { title, author, body, created_at, votes, topic, article_img_url } = article;
@@ -49,6 +50,7 @@ export default function ArticlePage() {
       </p>
       <p><strong>Votes: </strong>{votes}</p>
       <article>{body}</article>
+      <CommentList article_id={article_id} />
     </main>
   );
 
