@@ -5,6 +5,10 @@
   object-fit: cover;
 }
 
+.comment-card{
+  font-size: 12px;
+}
+
 
 
 #root {
