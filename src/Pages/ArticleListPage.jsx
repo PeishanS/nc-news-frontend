@@ -19,11 +19,11 @@ export default function ArticleListPage(){
   return (
     <main>
       <h2>All Ariticles</h2>
-      <ul className="article-list">
+      <ol className="article-list">
         {articles.map((article) => (
           <ArticleCard key={article.article_id} article={article} />
         ))}
-      </ul>
+      </ol>
     </main>
   )
 }
