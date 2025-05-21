@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { getArticleById } from "../Utils/Api";
 import CommentList from "../components/CommentList";
+import VoteButtons from "../components/VoteButtons";
 
 export default function ArticlePage() {
   const { article_id } = useParams();
@@ -10,19 +12,14 @@ export default function ArticlePage() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`https://nc-news-wfs6.onrender.com/api/articles/${article_id}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to load article.");
-        return res.json();
-      })
-      .then(({ article }) => {
+    getArticleById(article_id)
+      .then((article) => {
         setArticle(article);
-        setIsLoading(false);
       })
       .catch((err) => {
-        setErr(err.message);
-        setIsLoading(false);
-    })
+        setErr("Failed to load article.");
+      })
+    .finally(() => setIsLoading(false))
   }, [article_id]);
 
   if (isLoading) return <p>Loading article...</p>;
@@ -31,7 +28,7 @@ export default function ArticlePage() {
   const { title, author, body, created_at, votes, topic, article_img_url } = article;
   
   return (
-    <main>
+    <main className="article-page">
       <h2>{title}</h2>
       {article_img_url && (
         <img
@@ -50,6 +47,7 @@ export default function ArticlePage() {
       </p>
       <p><strong>Votes: </strong>{votes}</p>
       <article>{body}</article>
+      <VoteButtons article_id={article_id} initialVotes={votes} />
       <CommentList article_id={article_id} />
     </main>
   );

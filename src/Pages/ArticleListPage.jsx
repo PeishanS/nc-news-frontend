@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
-import ArticleCard from "../components/ArticleCard"
+import { getArticles } from "../Utils/Api";
+import ArticleCard from "../components/ArticleCard";
 
 export default function ArticleListPage(){
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://nc-news-wfs6.onrender.com/api/articles")
-      .then((res) => res.json())
-      .then(({ articles }) => {
-        setArticles(articles);
-        setIsLoading(false);
-    })
+    getArticles()
+      .then((articles) => setArticles(articles))
+      .finally(() => setIsLoading(false))
   }, [])
 
   if (isLoading) return <p>Loading articles...</p>
