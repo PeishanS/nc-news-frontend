@@ -21,3 +21,8 @@ export const getCommnetsByArticleId = (article_id) => {
     .get(`/articles/${article_id}/comments`)
     .then(({ data }) => data.comments);
 };
+
+export const patchArticleVotes = (article_id, voteChange) => {
+  return api
+    .patch(`/articles/${article_id}`, {voteChange});
+}

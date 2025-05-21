@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
-import { getArticles } from "../Utils/Api";
+import { getArticles } from "../utils/api";
 import ArticleCard from "../components/ArticleCard";
 
-export default function ArticleListPage(){
+export default function ArticleListPage() {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getArticles()
       .then((articles) => setArticles(articles))
-      .finally(() => setIsLoading(false))
-  }, [])
+      .finally(() => setIsLoading(false));
+  }, []);
 
-  if (isLoading) return <p>Loading articles...</p>
-  
+  if (isLoading) return <p>Loading articles...</p>;
+
   return (
     <main>
       <h2>All Ariticles</h2>
@@ -23,5 +23,5 @@ export default function ArticleListPage(){
         ))}
       </ol>
     </main>
-  )
+  );
 }

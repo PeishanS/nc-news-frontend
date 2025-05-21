@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getArticleById } from "../Utils/Api";
+import { getArticleById } from "../utils/api";
 import CommentList from "../components/CommentList";
 import VoteButtons from "../components/VoteButtons";
 
@@ -16,17 +16,18 @@ export default function ArticlePage() {
       .then((article) => {
         setArticle(article);
       })
-      .catch((err) => {
+      .catch(() => {
         setErr("Failed to load article.");
       })
-    .finally(() => setIsLoading(false))
+      .finally(() => setIsLoading(false));
   }, [article_id]);
 
   if (isLoading) return <p>Loading article...</p>;
   if (err) return <p>Error: {err}</p>;
 
-  const { title, author, body, created_at, votes, topic, article_img_url } = article;
-  
+  const { title, author, body, created_at, votes, topic, article_img_url } =
+    article;
+
   return (
     <main className="article-page">
       <h2>{title}</h2>
@@ -45,11 +46,9 @@ export default function ArticlePage() {
         <strong>Topic: </strong>
         {topic}
       </p>
-      <p><strong>Votes: </strong>{votes}</p>
       <article>{body}</article>
       <VoteButtons article_id={article_id} initialVotes={votes} />
       <CommentList article_id={article_id} />
     </main>
   );
-
 }
