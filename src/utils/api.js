@@ -5,15 +5,11 @@ const api = axios.create({
 });
 
 export const getArticles = (params = {}) => {
-  return api
-    .get("/articles", { params })
-    .then(({ data }) => data.articles)
+  return api.get("/articles", { params }).then(({ data }) => data.articles);
 };
 
 export const getArticleById = (article_id) => {
-  return api
-    .get(`/articles/${article_id}`)
-    .then(({ data }) => data.article)
+  return api.get(`/articles/${article_id}`).then(({ data }) => data.article);
 };
 
 export const getCommnetsByArticleId = (article_id) => {
@@ -23,6 +19,11 @@ export const getCommnetsByArticleId = (article_id) => {
 };
 
 export const patchArticleVotes = (article_id, voteChange) => {
+  return api.patch(`/articles/${article_id}`, { voteChange });
+};
+
+export const postComment = (article_id, comment) => {
   return api
-    .patch(`/articles/${article_id}`, {voteChange});
-}
+    .post(`/articles/${article_id}/comments`, comment)
+    .then(({ data }) => data.comment);
+};

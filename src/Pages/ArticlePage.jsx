@@ -3,10 +3,12 @@ import { useParams } from "react-router-dom";
 import { getArticleById } from "../utils/api";
 import CommentList from "../components/CommentList";
 import VoteButtons from "../components/VoteButtons";
+import CommentForm from "../components/CommentForm";
 
 export default function ArticlePage() {
   const { article_id } = useParams();
   const [article, setArticle] = useState(null);
+  const [comments, setComments] = useState([])
   const [isLoading, setIsLoading] = useState(true);
   const [err, setErr] = useState(null);
 
@@ -27,6 +29,10 @@ export default function ArticlePage() {
 
   const { title, author, body, created_at, votes, topic, article_img_url } =
     article;
+  
+  const handleNewComment = (newComment) => {
+    setComments((curr) => [newComment, ...curr])
+  }
 
   return (
     <main className="article-page">
@@ -49,6 +55,7 @@ export default function ArticlePage() {
       <article>{body}</article>
       <VoteButtons article_id={article_id} initialVotes={votes} />
       <CommentList article_id={article_id} />
+      <CommentForm article_id={article_id} handleNewComment={handleNewComment} />
     </main>
   );
 }
