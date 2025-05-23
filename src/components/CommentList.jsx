@@ -7,11 +7,17 @@ export default function CommentList({ article_id }) {
   const [isLoading, setIsLoading] = useState(true);
   const [err, setErr] = useState(null);
 
+  const currentUser = "grumpy19";
+
+  const removeCommentFromState = (comment_id) => {
+    setComments((curr) => curr.filter((comment) => comment.comment_id !== comment_id))
+  }
+
   useEffect(() => {
     setIsLoading(true);
     getCommnetsByArticleId(article_id)
       .then((comments) => setComments(comments))
-      .catch((err) => {
+      .catch(() => {
         setErr("Failed to load comments");
       })
       .finally(() => setIsLoading(false));
@@ -28,7 +34,12 @@ export default function CommentList({ article_id }) {
       ) : (
         <ul>
           {comments.map((comment) => (
-            <CommentCard key={comment.comment_id} comment={comment} />
+            <CommentCard
+              key={comment.comment_id}
+              comment={comment}
+              currentUser={currentUser}
+              removeCommentFromState={removeCommentFromState}
+            />
           ))}
         </ul>
       )}
