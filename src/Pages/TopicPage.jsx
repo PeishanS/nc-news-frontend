@@ -1,27 +1,33 @@
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getArticles } from "../utils/api";
 import ArticleCard from "../components/ArticleCard";
 
-export default function ArticleListPage() {
+export default function TopicPage() {
+  const {slug} = useParams();
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [err, setErr] = useState(null);
 
   useEffect(() => {
-    getArticles()
-      .then((articles) => setArticles(articles))
+    setIsLoading(true);
+    getArticles({ topic: slug })
+      .then((articles) => { setArticles(articles) })
+      .catch(() => setErr("Failed to load the topic articles."))
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [slug])
 
   if (isLoading) return <p>Loading articles...</p>;
+  if (err) return <p>{err}</p>;
 
   return (
     <main>
-      <h2>All Articles</h2>
-      <ol className="article-list">
+      <h2>Articles about "{slug}"</h2>
+      <ul>
         {articles.map((article) => (
           <ArticleCard key={article.article_id} article={article} />
         ))}
-      </ol>
+      </ul>
     </main>
-  );
+  )
 }
