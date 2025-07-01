@@ -1,12 +1,59 @@
-# React + Vite
+# NC News Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Deployed Version
 
-Currently, two official plugins are available:
+You can view the live app here: [https://nc-news-peishan.netlify.app](https://nc-news-peishan.netlify.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## About This Project
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+NC News is a news aggregation React application built with Vite. It displays articles from various categories, allowing users to browse, read, and interact with news content easily.
+
+The app communicates with a backend API to fetch news data dynamically. The frontend is designed to be responsive and user-friendly.
+
+---
+
+## Backend Repository
+
+The backend code for this project is available at: [https://github.com/PeishanS/NC-News](https://github.com/PeishanS/NC-News)
+
+---
+
+## Node Version
+
+This project requires **Node.js version 23.8.0 or above** to run locally.
+
+You can check your Node version by running:
+
+```bash
+node --version
+```
+
+---
+
+## Running the Project Locally
+
+To run this project on your local machine, follow these steps:
+
+```bash
+git clone https://github.com/PeishanS/nc-news-frontend.git
+cd nc-news-frontend
+npm install
+npm run build
+npm run dev
+```
+
+Then open your browser and visit:
+
+```
+http://localhost:5173
+```
+
+*Note: The port number may vary, please check the terminal output after running `npm run dev`.*
+
+---
+
+## Credits
+
+This portfolio project was created as part of a Digital Skills Bootcamp in Software Engineering provided by [Northcoders](https://northcoders.com/)
