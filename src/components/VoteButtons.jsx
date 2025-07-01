@@ -1,20 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { patchArticleVotes } from "../utils/api";
 
 export default function VoteButtons({ article_id, initialVotes }) {
+  const voteKey = `vote_${article_id}`;
   const [voteDelta, setVoteDelta] = useState(0);
   const [err, setErr] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasVoted, setHasVoted] = useState(false);
 
+  useEffect(() => {
+    const savedVote = localStorage.getItem(voteKey);
+    if (savedVote) {
+      setHasVoted(true);
+      setVoteDelta(parseInt(savedVote));
+    }
+  }, [voteKey])
+
   const handleVote = (voteChange) => {
-    setVoteDelta((curr) => curr + voteChange);
+    const newDelta = voteDelta + voteChange;
+
+    setVoteDelta(newDelta);
     setHasVoted(true);
     setIsSubmitting(true);
     setErr(null);
 
     patchArticleVotes(article_id, voteChange)
       .then(() => {
+        localStorage.setItem(voteKey, voteChange)
         setIsSubmitting(false);
       })
       .catch(() => {

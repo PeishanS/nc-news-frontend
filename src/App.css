@@ -53,3 +53,13 @@
 .read-the-docs {
   color: #888;
 }
+
+.sort-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.sort-controls select, .sort-controls button {
+  padding: 0.3rem 0.6rem;
+}
